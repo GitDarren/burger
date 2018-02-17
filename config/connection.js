@@ -13,10 +13,10 @@ if (process.env.JAWSDB_URL) {
 } else  {
     connection = mysql.createConnection( {
         host: "localhost",
-        dialect: "mysql",
+        port: 3306,
         user: "root",
         password: "root",
-          database: "burgers_db" 
+        database: "burgers_db" 
         });
 };
 
@@ -25,8 +25,10 @@ if (process.env.JAWSDB_URL) {
 
 connection.connect(function(err)    {
     if (err) throw (err);
-    console.log("Connected as id: " + conneciton.threadid);
+    console.log("Connected as id: " + connection.threadid);
 });
 
 // Exports the connection for other files to use
 module.exports = connection;
+
+
