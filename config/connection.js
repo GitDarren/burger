@@ -25,7 +25,7 @@ if (process.env.JAWSDB_URL) {
 
 connection.connect(function(err)    {
     if (err) throw (err);
-    console.log("Connected as id: " + connection.threadid);
+    console.log("Connected as id: " + connection.threadId);
 });
 
 // Exports the connection for other files to use

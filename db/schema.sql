@@ -2,11 +2,10 @@ CREATE DATABASE burgers_db;
 USE burgers_db;
 
 CREATE TABLE `burgers` (
-  `id` Int( 11 ) AUTO_INCREMENT NOT NULL,
+  `id` INT PRIMARY KEY AUTO_INCREMENT,
   `burger_name` VARCHAR( 255) NOT NULL,
-  `devoured` BOOLEAN,
-
-  PRIMARY KEY ( `id` ) );
+  `devoured` BOOLEAN DEFAULT false,
+ );
 
 
 

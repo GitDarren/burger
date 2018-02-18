@@ -13,13 +13,14 @@ function printQuestionsMarks(num) {
     return array.toString();
 }
 
+//Helper function to convert object/key value paris into sql syntax 
 function objToSql(ob) {
 
     var array = [];
 
     for (key in ob) {
         if (ob.hasOwnProperty(key)) {
-            arr.push(key + "-" + ob[key]);
+            array.push(key + "-" + ob[key]);
         }
     }
 
@@ -37,27 +38,27 @@ var orm = {
 
     //vals in an array of values that we want to save to cols
     //cols are the columns we want to insert the values into
-    insertOne: function (tables, cols, vals, cb) {
+    create: function (table, cols, vals, cb) {
         var queryString = "INSERT INTO " + table;
 
         queryString = queryString + " (";
         queryString = queryString + cols.toString();
         queryString = queryString + ") ";
         queryString = queryString + "VALUES (";
-        queryString = queryString + printQuestionsMarks(val.length);
+        queryString = queryString + printQuestionsMarks(vals.length);
         queryString = queryString + ") ";
 
         console.log(queryString);
 
         connection.query(queryString, vals, function (err, result) {
             if (err) throw err;
-            cbb(result);
+            cb(result);
         });
     },
 
     //objColVals would be the columns and values that you want to update
     //an example of objColVals would be {name: cheeseburger, devoured: true}
-    updateOne: function (table, objColVals, condition, cb) {
+    update: function (table, objColVals, condition, cb) {
         var queryString = "UPDATE " + table;
 
         queryString = queryString + " SET ";
@@ -70,7 +71,17 @@ var orm = {
             if (err) throw err;
             cb(result);
         });
+    },
+
+    delete: function (table, condition, cb) {
+        var queryString = "DELETE FROM " + table;
+        queryString += " WHERE " + condition;
+        connection.query(queryString, function(err, result) {
+            if(err) throw err;
+            cb(result);
+        })
     }
 };
 
+//require by projects.js model
 module.exports = orm;

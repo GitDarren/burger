@@ -3,13 +3,13 @@
 //Psuedocode for main app//
 
 //Import Orm.js//
-var orm = require("/Users/darrensmith/Documents/UT-Bootcamp/Homework/BurgerApp/config/orm.js");
+var orm = require("../config/orm.js");
 
 //create the code that will call the ORM functions using burger specific input for the ORM.
 
 var burger = {
 
-    all: function (cb) {
+    selectAll: function (cb) {
         orm.selectAll("burgers", function (res) {
             cb(res);
         });
@@ -36,5 +36,5 @@ var burger = {
     }
 };
 
-// Exports the burger.js for other files to use
+// Required by burgers_controller
 module.exports = burger;
