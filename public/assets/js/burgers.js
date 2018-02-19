@@ -17,7 +17,7 @@ $(function() {
         function() {
           console.log("changed burger status to", newBurgerStatus);
           // Reload the page to get the updated list
-          // location.reload();
+          location.reload();
         }).fail(function(status, error) {
             console.log(error);
         })
