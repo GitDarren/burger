@@ -21,11 +21,14 @@ router.get("/", function(req, res)  {
 });
 
 router.delete("/api/burgers/:id", function(req, res)    {
-    let condition = "id="+req.params.id;
+    let condition = "id = " + req.params.id;
+
     burger.delete(condition, function(result)   {
-        if(result.affectedRows ===0)    {
-            //if no rows effected, ufo (id) didn't exist. send 404
+        if(result.affectedRows === 0)    {
+            //if no rows effected, the the ID didn't exist. send 404
         return res.status(404).end();
+        } else{
+            res.status(200).end();
         }
     });
 });
