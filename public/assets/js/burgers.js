@@ -1,8 +1,7 @@
 // Make sure we wait to attach our handlers until the DOM is fully loaded.
 $(function() {
 
-    // <button class="change-sleep" data-id="{{id}}" data-devoured="{{devoured}}">
-    $(".change-sleep").on("click", function(event) {
+    $(".change-status").on("click", function(event) {
       var id = $(this).data("id");
       var newstatus = $(this).data("devour");
   
@@ -18,7 +17,7 @@ $(function() {
         function() {
           console.log("changed burger status to", newBurgerStatus);
           // Reload the page to get the updated list
-        //   location.reload();
+          location.reload();
         }).fail(function(status, error) {
             console.log(error);
         })
@@ -37,13 +36,14 @@ $(function() {
       $.ajax("/api/burgers", {
         type: "POST",
         data: newBurger
-      }).then(
+      }).done(
         function() {
           console.log("created new burger");
           // Reload the page to get the updated list
           location.reload();
-        }
-      );
+        }).fail(function (status, error)  {
+          console.log(error);
+        })
     });
   
     $(".delete-burger").on("click", function(event) {
@@ -52,13 +52,14 @@ $(function() {
       // Send the DELETE request.
       $.ajax("/api/burgers/"+id, {
         type:"DELETE"
-      }).then(
+      }).done(
         function() {
           console.log("deleted burger", id);
           // Reload the page to get the updated list
           location.reload();
-        }
-      );
+        }).fail(function (status, error)  {
+          console.log(error);
+        })
     });
   });
   
