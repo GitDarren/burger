@@ -1,3 +1,4 @@
+// Import MySQL connection
 var connection = require("./connection.js");
 
 // Object Relational Mapper (ORM)
@@ -13,14 +14,18 @@ function printQuestionsMarks(num) {
     return array.toString();
 }
 
-//Helper function to convert object/key value paris into sql syntax 
+//Helper function to convert object/key value pairs into SQL syntax 
 function objToSql(ob) {
 
     var array = [];
 
     for (key in ob) {
-        if (ob.hasOwnProperty(key)) {
-            array.push(key + "-" + ob[key]);
+        var value = ob[key];
+        if (ob.hasOwnProperty.call(ob, key)) {
+            if (typeof value === "string" && value.indexOf(" ") >= 0)   {
+                value = "'" + value + "'"
+            }
+            array.push(key + "=" + value);
         }
     }
 

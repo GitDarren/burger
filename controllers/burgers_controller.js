@@ -40,6 +40,18 @@ router.post("/api/burgers", function(req, res)  {
     });
 });
 
+//Update
+router.put("/api/burgers/:id", function(req, res)    {
+    let condition = "id="+req.params.id;
+    burger.update({devoured: req.body.devoured}, condition, function(result)   {
+        if(result.affectedRows ===0)    {
+            //if no rows effected, ufo (id) didn't exist. send 404
+        return res.status(404).end();
+        } else{
+            return res.status(200).end();
+        }
+    });
+});
 
 // Export routes for server.js to use.
 module.exports = router;
